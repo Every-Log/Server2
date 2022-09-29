@@ -10,20 +10,17 @@ import java.lang.reflect.Member;
 @Getter
 @NoArgsConstructor
 public class UserDto {
-    // 회원번호
     // 아이디
     // 닉네임
     // 비밀번호
     // 이미지
-    private Long id;
     private String user_id;
     private String name;
     private String password;
     private String image;
 
     @Builder
-    public UserDto(Long id, String user_id, String name, String password, String image) {
-        this.id = id;
+    public UserDto(String user_id, String name, String password, String image) {
         this.user_id = user_id;
         this.name = name;
         this.password = password;

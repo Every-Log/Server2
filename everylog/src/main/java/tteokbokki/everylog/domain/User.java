@@ -28,7 +28,6 @@ public class User {
 
         @Builder
         public User(String user_id, String name, String password, String image) {
-
                 this.user_id = user_id;
                 this.name = name;
                 this.password = password;
