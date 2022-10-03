@@ -12,6 +12,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/api/user")
+    @ResponseBody
     public String GetMappingTest (@RequestParam int id) {
 
         return "Get Mapping : " + id;
