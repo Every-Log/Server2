@@ -25,18 +25,18 @@ public class UserService {
      * 2. 해당 데이터가 없으면(NULL) "false"를 리턴
      * 3. 해당 데이터와 사용자가 입력한 password가 같지 않다면, "false"를 리턴
      */
-    @Transactional
-    public boolean login(UserDto userDto) {
-//        Optional<User> findMember = userRepository.findById(userDto.toEntity().getId());
+//    @Transactional
+//    public boolean login(UserDto userDto) {
+////        Optional<User> findMember = userRepository.findById(userDto.toEntity().getId());
+////
+////        if(findMember == null) {
+////            return false;
+////        }
+////
+////        if(!findMember.getPassword().equals(userDto.getPassword())) {
+////            return false;
+////        }
 //
-//        if(findMember == null) {
-//            return false;
-//        }
-//
-//        if(!findMember.getPassword().equals(userDto.getPassword())) {
-//            return false;
-//        }
-
-        return true;
-    }
+//        return true;
+//    }
 }

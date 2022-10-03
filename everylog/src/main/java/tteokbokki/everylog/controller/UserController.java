@@ -7,7 +7,7 @@ import tteokbokki.everylog.dto.UserDto;
 import tteokbokki.everylog.service.UserService;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
     private final UserService userService;
 
