@@ -2,12 +2,14 @@ package tteokbokki.everylog.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Table(name = "MEMBER")
 @Entity
 @Getter
+@NoArgsConstructor
 public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,14 @@ public class User {
 
         @Builder
         public User(String user_id, String name, String password, String image) {
+                this.user_id = user_id;
+                this.name = name;
+                this.password = password;
+                this.image = image;
+        }
+
+        public void update(String user_id, String name, String password, String image)
+        {
                 this.user_id = user_id;
                 this.name = name;
                 this.password = password;

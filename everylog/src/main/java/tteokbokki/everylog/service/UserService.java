@@ -19,6 +19,25 @@ public class UserService {
         return userRepository.save(userDto.toEntity()).getId();
     }
 
+    //조회
+    public UserDto findById(Long id) {
+        User entity = userRepository.findById(id)
+                .orElseThrow(() -> new
+                        IllegalArgumentException("이이런 사용자는 없습니다. id=" + id));
+
+        return new UserDto(entity);
+    }
+
+    //수정
+    public Long update(Long id, UserDto userDto)
+    {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다. id = " + id));
+
+        user.update(userDto.getUser_id(), userDto.getName(), userDto.getPassword(), userDto.getImage());
+        return id;
+    }
+
     /**
      * 로그인
      * 1. Repository에서 해당 회원 번호로 DB에 저장된 데이터를 가지고 옴
@@ -39,4 +58,5 @@ public class UserService {
 //
 //        return true;
 //    }
+
 }
