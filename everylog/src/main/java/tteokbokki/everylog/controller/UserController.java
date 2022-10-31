@@ -1,6 +1,9 @@
 package tteokbokki.everylog.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tteokbokki.everylog.dto.UserDto;
@@ -8,6 +11,7 @@ import tteokbokki.everylog.service.UserService;
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class UserController {
     private final UserService userService;
 
@@ -22,5 +26,14 @@ public class UserController {
     @PostMapping("/api/user")
     public Long save(@RequestBody UserDto userDto){
         return userService.save(userDto);
+    }
+
+    @PostMapping("/api/login")
+    public ResponseEntity login(@RequestBody UserDto userDto) {
+        log.info("userId = {}, password = {}", userDto.toEntity().getUserId(), userDto.toEntity().getPassword());
+        if(userService.login(userDto.toEntity().getUserId(), userDto.toEntity().getPassword()).equals("Success")) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }

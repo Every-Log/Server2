@@ -14,14 +14,14 @@ public class UserDto {
     // 닉네임
     // 비밀번호
     // 이미지
-    private String user_id;
+    private String userId;
     private String name;
     private String password;
     private String image;
 
     @Builder
-    public UserDto(String user_id, String name, String password, String image) {
-        this.user_id = user_id;
+    public UserDto(String userId, String name, String password, String image) {
+        this.userId = userId;
         this.name = name;
         this.password = password;
         this.image = image;
@@ -29,7 +29,7 @@ public class UserDto {
 
     public User toEntity() {
         return User.builder()
-                .user_id(user_id)
+                .userId(userId)
                 .name(name)
                 .password(password)
                 .image(image)
