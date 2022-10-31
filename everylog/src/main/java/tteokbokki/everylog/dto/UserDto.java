@@ -10,14 +10,14 @@ import java.lang.reflect.Member;
 @Getter
 @NoArgsConstructor
 public class UserDto {
-    private String user_id; //id
-    private String name; //닉네임
-    private String password; //비밀번호
-    private String image; //이미지
+    private String userId;
+    private String name;
+    private String password;
+    private String image;
 
     @Builder
-    public UserDto(String user_id, String name, String password, String image) {
-        this.user_id = user_id;
+    public UserDto(String userId, String name, String password, String image) {
+        this.userId = userId;
         this.name = name;
         this.password = password;
         this.image = image;
@@ -26,7 +26,7 @@ public class UserDto {
     @Builder
     public UserDto(User user) //엔티티 받아서 Dto 생성
     {
-        this.user_id = user.getUser_id();
+        this.userId = user.getUserId();
         this.name = user.getName();
         this.password = user.getPassword();
         this.image = user.getImage();
@@ -34,7 +34,7 @@ public class UserDto {
 
     public User toEntity() {
         return User.builder()
-                .user_id(user_id)
+                .userId(userId)
                 .name(name)
                 .password(password)
                 .image(image)

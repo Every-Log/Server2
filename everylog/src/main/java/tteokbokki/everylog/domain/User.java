@@ -17,7 +17,7 @@ public class User {
         private Long id; //회원번호
 
         @Column(nullable = false, unique = true)
-        private String user_id; //아이디
+        private String userId; //아이디
 
         @Column
         private String name; //닉네임
@@ -29,8 +29,8 @@ public class User {
         private String image; //이미지 주소
 
         @Builder
-        public User(String user_id, String name, String password, String image) {
-                this.user_id = user_id;
+        public User(String userId, String name, String password, String image) {
+                this.userId = userId;
                 this.name = name;
                 this.password = password;
                 this.image = image;

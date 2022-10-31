@@ -1,6 +1,7 @@
 package tteokbokki.everylog.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.User;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
@@ -34,7 +36,7 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다. id = " + id));
 
-        user.update(userDto.getUser_id(), userDto.getName(), userDto.getPassword(), userDto.getImage());
+        user.update(userDto.getUserId(), userDto.getName(), userDto.getPassword(), userDto.getImage());
         return id;
     }
 
@@ -44,19 +46,16 @@ public class UserService {
      * 2. 해당 데이터가 없으면(NULL) "false"를 리턴
      * 3. 해당 데이터와 사용자가 입력한 password가 같지 않다면, "false"를 리턴
      */
-//    @Transactional
-//    public boolean login(UserDto userDto) {
-////        Optional<User> findMember = userRepository.findById(userDto.toEntity().getId());
-////
-////        if(findMember == null) {
-////            return false;
-////        }
-////
-////        if(!findMember.getPassword().equals(userDto.getPassword())) {
-////            return false;
-////        }
-//
-//        return true;
-//    }
 
+    @Transactional
+    public String login(String userId, String password) {
+
+        Optional<User> user = userRepository.findByUserId(userId);
+        log.info("db password = {}, input password = {}", user.get().getPassword(), password);
+        if(user.get().getPassword().equals(password)) {
+            return "Success";
+        }
+
+        return "Failed";
+    }
 }
