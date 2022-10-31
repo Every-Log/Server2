@@ -10,10 +10,6 @@ import java.lang.reflect.Member;
 @Getter
 @NoArgsConstructor
 public class UserDto {
-    // 아이디
-    // 닉네임
-    // 비밀번호
-    // 이미지
     private String userId;
     private String name;
     private String password;
@@ -25,6 +21,15 @@ public class UserDto {
         this.name = name;
         this.password = password;
         this.image = image;
+    }
+
+    @Builder
+    public UserDto(User user) //엔티티 받아서 Dto 생성
+    {
+        this.userId = user.getUserId();
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.image = user.getImage();
     }
 
     public User toEntity() {

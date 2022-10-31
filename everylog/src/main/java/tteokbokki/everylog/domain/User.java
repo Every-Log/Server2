@@ -36,4 +36,12 @@ public class User {
                 this.image = image;
         }
 
+        public void update(String user_id, String name, String password, String image)
+        {
+                this.user_id = user_id;
+                this.name = name;
+                this.password = password;
+                this.image = image;
+        }
+
 }
