@@ -18,13 +18,10 @@ public class User {
 
         @Column(nullable = false, unique = true)
         private String userId; //아이디
-
         @Column
         private String name; //닉네임
-
         @Column
         private String password; //비밀번호
-
         @Column
         private String image; //이미지 주소
 
@@ -36,9 +33,9 @@ public class User {
                 this.image = image;
         }
 
-        public void update(String user_id, String name, String password, String image)
+        public void update(String userId, String name, String password, String image)
         {
-                this.userId = user_id;
+                this.userId = userId;
                 this.name = name;
                 this.password = password;
                 this.image = image;

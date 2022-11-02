@@ -22,4 +22,6 @@ public class UserTest {
         String s = userService.login("haeji", "01039758088");
         assertEquals("Failed",s, "로그인실패");
     }
+
+    @Test
 }
