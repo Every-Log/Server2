@@ -17,8 +17,9 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long save(UserDto userDto){
+    public Long save(UserDto userDto) {
         return userRepository.save(userDto.toEntity()).getId();
+
     }
 
     //조회
