@@ -23,13 +23,13 @@ public class PostDto {
 
 
     @Builder
-    public PostDto(Long id, User user, Category category, String title, Hashtag hashtags, PostImage postImages) {
+    public PostDto(Long id, User user, Category category, String title) {
         this.id = id;
         this.user = user;
         this.category = category;
         this.title = title;
-        this.hashtags = hashtags;
-        this.postImages = postImages;
+//        this.hashtags = hashtags;
+//        this.postImages = postImages;
 
     }
 
@@ -39,8 +39,8 @@ public class PostDto {
                 .user(user)
                 .category(category)
                 .title(title)
-                .hashtags(hashtags)
-                .postImages(postImages)
+//                .hashtags(hashtags)
+//                .postImages(postImages)
                 .build();
     }
 }
