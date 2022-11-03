@@ -3,6 +3,7 @@ package tteokbokki.everylog.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import tteokbokki.everylog.dto.UserDto;
 
 import javax.persistence.*;
 
@@ -18,13 +19,10 @@ public class User {
 
         @Column(nullable = false, unique = true)
         private String userId; //아이디
-
         @Column
         private String name; //닉네임
-
         @Column
         private String password; //비밀번호
-
         @Column
         private String image; //이미지 주소
 
@@ -36,12 +34,10 @@ public class User {
                 this.image = image;
         }
 
-        public void update(String userId, String name, String password, String image)
+        public void update(String name, String img)
         {
-                this.userId = userId;
                 this.name = name;
-                this.password = password;
-                this.image = image;
+                this.image = img;
         }
 
 }

@@ -39,6 +39,11 @@ public class UserDto {
                 .password(password)
                 .image(image)
                 .build();
+    }
 
+    public void update(String name, String img)
+    {
+        this.name = name;
+        this.image = img;
     }
 }
