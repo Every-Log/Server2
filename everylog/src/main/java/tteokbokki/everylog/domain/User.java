@@ -3,6 +3,7 @@ package tteokbokki.everylog.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import tteokbokki.everylog.dto.UserDto;
 
 import javax.persistence.*;
 
@@ -33,12 +34,10 @@ public class User {
                 this.image = image;
         }
 
-        public void update(String userId, String name, String password, String image)
+        public void update(String name, String img)
         {
-                this.userId = userId;
                 this.name = name;
-                this.password = password;
-                this.image = image;
+                this.image = img;
         }
 
 }
