@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "CATEGORY")
 @Entity
 @Getter
-@Setter
 public class Category {
     @Id
     @GeneratedValue
