@@ -26,19 +26,14 @@ public class Post {
     @JoinColumn(name = "member_id")
     private User user; //작성 회원
 
-    // N : 1 (카테고리)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category; //카테고리
-
     @Column
     private String title; //제목
 
     @Builder
-    public Post(User user, Category category, String title) {
+    public Post(User user, String title) {
         this.user = user;
-        this.category = category;
         this.title = title;
     }
+
 
 }

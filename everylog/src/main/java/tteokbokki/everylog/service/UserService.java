@@ -32,6 +32,7 @@ public class UserService {
     }
 
     //수정
+    @Transactional
     public Long update(Long id, UserDto userDto)
     {
         User user = userRepository.findById(id)

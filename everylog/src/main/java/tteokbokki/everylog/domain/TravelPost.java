@@ -15,8 +15,8 @@ public class TravelPost extends Post {
     private String summary; // 한 줄 정리
 
     @Builder
-    public TravelPost(User user, Category category, String title, String travelContext, String travelDate, String summary) {
-        super(user, category, title);
+    public TravelPost(User user, String title, String travelContext, String travelDate, String summary) {
+        super(user, title);
         this.travelContext = travelContext;
         this.travelDate = travelDate;
         this.summary = summary;

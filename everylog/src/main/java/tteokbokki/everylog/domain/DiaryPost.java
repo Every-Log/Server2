@@ -13,8 +13,8 @@ public class DiaryPost extends Post{
     private String diaryContext; //글 내용
 
     @Builder
-    public DiaryPost(User user, Category category, String title, String diaryContext) {
-        super(user, category, title);
+    public DiaryPost(User user, String title, String diaryContext) {
+        super(user, title);
         this.diaryContext = diaryContext;
     }
 }
