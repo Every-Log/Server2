@@ -9,14 +9,14 @@ import java.io.Serializable;
 @Table(name = "HASHTAG")
 @Entity
 @Getter
-@Setter
 public class Hashtag implements Serializable {
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post; // 게시글 번호
 
     @Id
-    @Column(name = "hashtag_name")
+    @GeneratedValue
+    @Column(name = "hashtag_id")
+    private Long id; // 해시태그 번호
+
+    @Column
     private String name; //해시태그 이름
+
 }

@@ -13,8 +13,11 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue
-    @Column(name = "category_name")
-    private String name; //카테고리 이름
+
+    @Column(name = "category_id")
+    private Long id;
+
+    private String name; // 카테고리 이름
 
     // 1 : N (카테고리)
     @OneToMany(mappedBy = "category")

@@ -16,7 +16,7 @@ public class Achievement extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long number; // 기록 번호
+    private Long id; // 기록 번호
 
     private Long memberId; // 회원번호
 

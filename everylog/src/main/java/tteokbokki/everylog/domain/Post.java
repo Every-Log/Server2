@@ -28,27 +28,17 @@ public class Post {
 
     // N : 1 (카테고리)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_name")
+    @JoinColumn(name = "category_id")
     private Category category; //카테고리
 
     @Column
     private String title; //제목
 
-    // 1 : N (해시태그)
-    @OneToMany(mappedBy = "post")
-    private List<Hashtag> hashtags = new ArrayList<>();
-
-    // 1 : N (이미지)
-    @OneToMany(mappedBy = "post")
-    private List<PostImage> PostImages = new ArrayList<>();
-
     @Builder
-    public Post(Long id, User user, Category category, String title, List<Hashtag> hashtags, List<PostImage> postImages) {
-        this.id = id;
+    public Post(User user, Category category, String title) {
         this.user = user;
         this.category = category;
         this.title = title;
-        this.hashtags = hashtags;
-        PostImages = postImages;
     }
+
 }
