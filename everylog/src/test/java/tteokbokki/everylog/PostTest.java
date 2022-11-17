@@ -21,7 +21,7 @@ public class PostTest {
     UserService userService;
 
     @Test
-    public void 게시글_등록() {
+    public void save() {
         User user = userService.findById(1L).toEntity();
         PostDto postDto = new PostDto();
         postDto.setUser(user);

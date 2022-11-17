@@ -1,7 +1,10 @@
 package tteokbokki.everylog.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,6 +12,8 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("S")
 @Getter
+@NoArgsConstructor
+@SuperBuilder
 public class StudyPost extends Post{
     //본문 글
     private String StudyContext; //공부 내용
@@ -19,7 +24,7 @@ public class StudyPost extends Post{
     private float progress; //진도율
     private byte StudyStar; //별점
 
-    @Builder
+//    @Builder
     public StudyPost(User user, String title, String StudyContext, String nextStudyContext,
                      String weakStudyContext, float progress, byte StudyStar) {
         super(user, title);

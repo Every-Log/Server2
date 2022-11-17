@@ -1,8 +1,10 @@
 package tteokbokki.everylog.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +13,9 @@ import java.util.List;
 @Table(name = "POST")
 @Entity
 @Getter
+@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 public class Post {
@@ -29,7 +33,7 @@ public class Post {
     @Column
     private String title; //제목
 
-    @Builder
+//    @Builder
     public Post(User user, String title) {
         this.user = user;
         this.title = title;
