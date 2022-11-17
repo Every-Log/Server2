@@ -17,9 +17,9 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/api/travelPost")
-    public Long TravelPostSave(@RequestBody PostDto travelPostDto){
-        return postService.save(travelPostDto);
+    @PostMapping("/api/register")
+    public Long save(@RequestBody PostDto postDto){
+        return postService.save(postDto);
     }
 
     @DeleteMapping("/api/delete/{id}")

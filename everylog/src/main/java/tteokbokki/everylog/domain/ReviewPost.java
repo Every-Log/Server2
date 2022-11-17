@@ -15,8 +15,8 @@ public class ReviewPost extends Post{
     private String reviewContext; // 내용
 
     @Builder
-    public ReviewPost(User user, Category category, String title, String reviewContent, int reviewStar, String reviewContext) {
-        super(user, category, title);
+    public ReviewPost(User user,String title, String reviewContent, int reviewStar, String reviewContext) {
+        super(user, title);
         this.reviewContent = reviewContent;
         this.reviewStar = reviewStar;
         this.reviewContext = reviewContext;

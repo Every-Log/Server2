@@ -20,9 +20,9 @@ public class StudyPost extends Post{
     private byte StudyStar; //별점
 
     @Builder
-    public StudyPost(User user, Category category, String title, String StudyContext, String nextStudyContext,
+    public StudyPost(User user, String title, String StudyContext, String nextStudyContext,
                      String weakStudyContext, float progress, byte StudyStar) {
-        super(user, category, title);
+        super(user, title);
         this.StudyContext = StudyContext;
         this.nextStudyContext = nextStudyContext;
         this.weakStudyContext = weakStudyContext;

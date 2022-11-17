@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.Post;
+import tteokbokki.everylog.domain.User;
 import tteokbokki.everylog.dto.PostDto;
+import tteokbokki.everylog.dto.UserDto;
 import tteokbokki.everylog.repository.PostRepository;
 
 @RequiredArgsConstructor
@@ -14,8 +16,17 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Long save(PostDto travelPostDto){
-        return postRepository.save(travelPostDto.toEntity()).getId();
+    public Long save(PostDto postDto){
+        return postRepository.save(postDto.toEntity()).getId();
+    }
+
+    //조회
+    public Post findById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new
+                        IllegalArgumentException("이런 게시긓은 없습니다. id=" + id));
+
+        return post;
     }
 
     @Transactional
