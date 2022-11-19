@@ -1,9 +1,7 @@
 package tteokbokki.everylog.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
@@ -12,7 +10,6 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("T")
 @Getter
-@NoArgsConstructor
 @SuperBuilder
 public class TravelPost extends Post {
     private String travelContext; // 여행 내용

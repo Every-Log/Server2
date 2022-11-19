@@ -1,9 +1,7 @@
 package tteokbokki.everylog.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
@@ -12,7 +10,6 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("R")
 @Getter
-@NoArgsConstructor
 @SuperBuilder
 public class ReviewPost extends Post{
     private String reviewContent; // 영화 및 독서란

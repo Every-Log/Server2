@@ -1,28 +1,28 @@
 package tteokbokki.everylog.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-@Table(name = "POST_IMAGE")
 @Entity
 @NoArgsConstructor
 @Getter
-public class PostImage implements Serializable {
+public class PostImage {
 
-    // 1 : N (게시글)
-    @Id
-    @OneToMany(mappedBy = "post_id")
-    private List<Post> posts = new ArrayList<>();
+    @Id @GeneratedValue
+    @Column(name = "post_image_id")
+    private Long id;
 
-    // 1 : N (이미지)
-    @Id
-    @OneToMany(mappedBy = "image_id")
-    private List<Image> images = new ArrayList<>();
+    // N : 1 (게시글)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    // N : 1 (이미지)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
 
 }
