@@ -3,7 +3,6 @@ package tteokbokki.everylog.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tteokbokki.everylog.dto.UserDto;
 
 import javax.persistence.*;
 

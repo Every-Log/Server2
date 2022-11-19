@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.User;
 import tteokbokki.everylog.dto.PostDto;
+import tteokbokki.everylog.dto.UserDto;
 import tteokbokki.everylog.service.PostService;
 import tteokbokki.everylog.service.UserService;
 
@@ -22,9 +23,11 @@ public class PostTest {
 
     @Test
     public void save() {
-        User user = userService.findById(1L).toEntity();
+        User user1 = new User("1", "name", "pass", "img");
+        Long uId = userService.save(new UserDto(user1));
+        User user2 = userService.findById(uId).toEntity();
         PostDto postDto = new PostDto();
-        postDto.setUser(user);
+        postDto.setUser(user2);
         postDto.setTitle("test1");
         postDto.setPostType("D");
         postDto.setDiaryContext("다이어리입니다");
