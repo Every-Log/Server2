@@ -21,19 +21,19 @@ public class PostService {
     }
 
     //조회
-    public Post findById(Long id) {
+    public PostDto findById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new
-                        IllegalArgumentException("이런 게시긓은 없습니다. id=" + id));
+                        IllegalArgumentException("이런 게시글은 없습니다. id=" + id));
 
-        return post;
+        return new PostDto(post);
     }
 
     @Transactional
-    public Post delete(Long id){
+    public PostDto delete(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("게시물이 없습니다."));
         postRepository.delete(post);
-        return post;
+        return new PostDto(post);
     }
 }

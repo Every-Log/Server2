@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import tteokbokki.everylog.domain.DiaryPost;
 import tteokbokki.everylog.domain.Post;
 import tteokbokki.everylog.domain.User;
 import tteokbokki.everylog.dto.PostDto;
@@ -33,11 +34,8 @@ public class PostTest {
         User user1 = new User("1", "name", "pass", "img");
         Long uId = userService.save(new UserDto(user1));
         User user2 = userService.findById(uId).toEntity();
-        PostDto postDto = new PostDto();
-        postDto.setUser(user2);
-        postDto.setTitle("test1");
-        postDto.setPostType("D");
-        postDto.setDiaryContext("다이어리입니다");
+        DiaryPost post = new DiaryPost(user2, "test1","다이어리입니다");
+        PostDto postDto = new PostDto(post);
         Long pId = postService.save(postDto);
         assertEquals("test1", postService.findById(pId).getTitle(), "error");
     }
@@ -47,18 +45,16 @@ public class PostTest {
         User user1 = new User("2", "name2", "pass2", "img2");
         Long uId = userService.save(new UserDto(user1));
         User user2 = userService.findById(uId).toEntity();
-        PostDto postDto = new PostDto();
-        postDto.setUser(user2);
-        postDto.setTitle("test2");
-        postDto.setPostType("D");
-        postDto.setDiaryContext("다이어리입니다");
+        DiaryPost post = new DiaryPost(user2, "test2", "다이어리입니다2");
+        PostDto postDto = new PostDto(post);
         Long pId = postService.save(postDto);
         String title = postService.findById(pId).getTitle();
 
-//        Post deletedPost = postService.delete(pId);
+        PostDto deletedPostDto = postService.delete(pId);
+        assertEquals(title, deletedPostDto.toEntity().getTitle(), "error");
 
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                () -> postService.delete(130L));
-        assertThat(e.getMessage()).isEqualTo("게시물이 없습니다.");
+//        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+//                () -> postService.delete(130L));
+//        assertThat(e.getMessage()).isEqualTo("게시물이 없습니다.");
     }
 }

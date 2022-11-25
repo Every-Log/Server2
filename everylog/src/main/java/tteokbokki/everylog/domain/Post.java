@@ -30,7 +30,12 @@ public class Post {
     @Column
     private String title; //제목
 
-//    @Builder
+    public String getDiscriminatorValue(){
+        DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
+
+        return val == null ? null : val.value();
+    }
+
     public Post(User user, String title) {
         this.user = user;
         this.title = title;
