@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.Post;
-import tteokbokki.everylog.domain.User;
 import tteokbokki.everylog.dto.PostDto;
-import tteokbokki.everylog.dto.UserDto;
 import tteokbokki.everylog.repository.PostRepository;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -21,18 +21,19 @@ public class PostService {
     }
 
     //조회
-    public Post findById(Long id) {
+    public PostDto findById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new
-                        IllegalArgumentException("이런 게시긓은 없습니다. id=" + id));
+                        IllegalArgumentException("이런 게시글은 없습니다. id=" + id));
 
-        return post;
+        return new PostDto(post);
     }
 
     @Transactional
-    public void delete(Long id){
+    public PostDto delete(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->
-                new IllegalArgumentException("게시물이 없습니다." + id));
+                new IllegalArgumentException("게시물이 없습니다."));
         postRepository.delete(post);
+        return new PostDto(post);
     }
 }

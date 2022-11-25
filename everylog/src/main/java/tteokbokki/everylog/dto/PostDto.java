@@ -1,5 +1,6 @@
 package tteokbokki.everylog.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +8,6 @@ import tteokbokki.everylog.domain.*;
 
 @NoArgsConstructor
 @Getter
-@Setter
 public class PostDto {
     // 작성 회원
     private User user;
@@ -47,6 +47,41 @@ public class PostDto {
     private float progress;
     // 공부 별점
     private byte studyStar;
+
+    @Builder
+    public PostDto(Post post) //엔티티 받아서 Dto 생성
+    {
+        this.user = post.getUser();
+        this.title = post.getTitle();
+        this.postType = post.getDiscriminatorValue();
+        switch (postType) {
+            case "T":
+                TravelPost tPost = (TravelPost) post;
+                this.travelContext = tPost.getTravelContext();
+                this.travelDate = tPost.getTravelDate();
+                this.summary = tPost.getSummary();
+                break;
+            case "D":
+                DiaryPost dPost = (DiaryPost) post;
+                this.diaryContext = dPost.getDiaryContext();
+                break;
+            case "R":
+                ReviewPost rPost = (ReviewPost) post;
+                this.reviewContent = rPost.getReviewContent();
+                this.reviewStar = rPost.getReviewStar();;
+                this.reviewContext = rPost.getReviewContext();
+                break;
+            case "S":
+                StudyPost sPost = (StudyPost) post;
+                this.StudyContext = sPost.getStudyContext();
+                this.nextStudyContext = sPost.getNextStudyContext();
+                this.weakStudyContext = sPost.getWeakStudyContext();
+                this.progress = sPost.getProgress();
+                this.studyStar = sPost.getStudyStar();
+        }
+
+
+    }
 
     public Post toEntity() {
 

@@ -24,7 +24,7 @@
 //
 //    @DeleteMapping("/api/delete/{id}")
 //    public void delete(@PathVariable Long id){
-//        postService.delete(id);
+//        return postService.delete(id);
 //    }
 //
 //}
