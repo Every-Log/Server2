@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,9 +21,10 @@ public class PostImage {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    // N : 1 (이미지)
-    @ManyToOne(fetch = FetchType.LAZY)
+    // 1 : N(이미지)
+    @OneToMany
+    //@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
-    private Image image;
+    private List<Image> image;
 
 }

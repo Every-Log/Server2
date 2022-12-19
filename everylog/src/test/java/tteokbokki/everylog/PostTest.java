@@ -57,6 +57,7 @@ public class PostTest {
     }
 
     @Test
+
     public void 다이어리수정(){
         //기존 정보
             //작성자
@@ -134,5 +135,5 @@ public class PostTest {
 
         //확인
         assertEquals(2, postService.findById(pIds).getStudyStar(), "스터디 오류");
-    }
+
 }
