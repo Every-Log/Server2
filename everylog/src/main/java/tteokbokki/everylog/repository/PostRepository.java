@@ -14,21 +14,14 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<Post> findById(Long id);
 
-    // 해시태그 검색
-    @Query("SELECT post " +
-            "FROM Post post " +
-            "WHERE  ")
-    List<Post> findPostByHashtag(@Param(""));
-
-
     // 카테고리 별 조회
-    @Query("SELECT post " +
-            "FROM Post post " +
-            "WHERE post.dytpe Like CONCAT('%',:catetory,'%') ")
-    List<Post> findPostByCategory(@Param(""));
 
-    @Query("SELECT diary_post " +
-            "FROM Post diary_post")
-    List<Post> findPostByDiary(@Param(""));
+    // JpaRepository에서는 By 뒷 부분은 SQL의 where 조건 절에 해당된다.
+    // 따라서, Category을 붙여주면 Like 검색이 된다.
+    // 카테고리 검색
+    List<Post> findPostByCategory(String postType);
+    // 해시태그 검색
+    List<Post> findPostByHashtag(String hashtag);
+
 
 }
