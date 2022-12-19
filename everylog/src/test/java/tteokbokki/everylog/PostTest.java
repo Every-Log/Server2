@@ -76,6 +76,7 @@ public class PostTest {
         postService.update(pIdd, postDto1);
 
         //테스트
+        assertEquals(2, user.getAchievementmonth(), "달성도는 " + user.getAchievementmonth());
         assertEquals("test", postService.findById(pIdd).getTitle(), "다이어리 오류");
         assertEquals("안 멋있는 다이어리", postService.findById(pIdd).getDiaryContext(), "다이어리 오류");
     }
@@ -97,6 +98,7 @@ public class PostTest {
         postService.update(pIdr, postDto2);
 
         //확인
+        assertEquals(2, user.getAchievementmonth(), "달성도는 " + user.getAchievementmonth());
         assertEquals("별로야", postService.findById(pIdr).getReviewContext(), "리뷰 오류");
     }
 
@@ -119,7 +121,7 @@ public class PostTest {
     }
 
     @Test
-    public void 공부수정(){
+    public void 공부수정() {
         //주어짐
         User user = new User("1", "name", "pass", "img");
         Long uId = userService.save(new UserDto(user));
@@ -135,5 +137,5 @@ public class PostTest {
 
         //확인
         assertEquals(2, postService.findById(pIds).getStudyStar(), "스터디 오류");
-
+    }
 }
