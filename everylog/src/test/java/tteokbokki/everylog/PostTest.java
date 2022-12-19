@@ -119,7 +119,7 @@ public class PostTest {
     }
 
     @Test
-    public void 공부수정(){
+    public void 공부수정() {
         //주어짐
         User user = new User("1", "name", "pass", "img");
         Long uId = userService.save(new UserDto(user));
@@ -135,5 +135,6 @@ public class PostTest {
 
         //확인
         assertEquals(2, postService.findById(pIds).getStudyStar(), "스터디 오류");
+    }
 
 }

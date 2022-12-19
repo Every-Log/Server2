@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "POST")
 @Entity
@@ -30,6 +32,13 @@ public class Post {
     @Column
     private String title; //제목
 
+    @OneToMany(
+            mappedBy = "post",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    private List<Image> imageList = new ArrayList<>();
+
     public String getDiscriminatorValue(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
 
@@ -44,5 +53,15 @@ public class Post {
     public void update(String title)
     {
         this.title = title;
+    }
+
+    // Board에서 파일 처리 위함
+    public void addPhoto(Image image) {
+        this.imageList.add(image);
+
+        // 게시글에 파일이 저장되어있지 않은 경우
+        if(image.getPost() != this)
+            // 파일 저장
+            image.setPost(this);
     }
 }

@@ -72,29 +72,6 @@ public class PostService {
         return new PostDto(post);
     }
 
-    // 카테고리 별 조회
-    @Transactional
-    public List<PostDto> postList(String postType){
-        List<Post> posts = postRepository.findPostByCategory(postType);
-        List<PostDto> postDtoList = new ArrayList<>();
-        if(posts.isEmpty()) return postDtoList;
-
-        for(Post post : posts){
-            postDtoList.add(this.convertEntityToDto(post));
-        }
-        return postDtoList;
-    }
-
-    private PostDto convertEntityToDto(Post post){
-        return PostDto.builder().build();
-    }
-
-    // 해시태그 검색 조회
-    public PostDto search(Long id){
-        "SELECT * FROM Post where  "
-        return new PostDto(post);
-    }
-
     /*@Repository
     public interface postList extends JpaRepository<Post, Long> {
         @Query("SELECT post" + "FROM ")
