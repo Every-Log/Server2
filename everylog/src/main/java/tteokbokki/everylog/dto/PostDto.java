@@ -46,7 +46,7 @@ public class PostDto {
     // 공부 진도율
     private float progress;
     // 공부 별점
-    private byte studyStar;
+    private int studyStar;
 
     @Builder
     public PostDto(Post post) //엔티티 받아서 Dto 생성
@@ -123,5 +123,38 @@ public class PostDto {
         }
 
         return null;
+    }
+
+    public void updateDiary(String title, String context)
+    {
+        this.title = title;
+        this.diaryContext = context;
+    }
+
+    public void updateReview(String title, String reviewContext, String reviewContent, int reviewStar)
+    {
+        this.title = title;
+        this.reviewContent = reviewContent;
+        this.reviewContext = reviewContext;
+        this.reviewStar = reviewStar;
+    }
+
+    public void updateTravel(String title, String travelContext, String travelDate, String summary)
+    {
+        this.title = title;
+        this.travelContext = travelContext;
+        this.travelDate = travelDate;
+        this.summary = summary;
+    }
+
+    public void updateStudy(String title, String StudyContext, String nextStudyContext, String weakStudyContext,
+                            float progress, int studyStar)
+    {
+        this.title = title;
+        this.StudyContext = StudyContext;
+        this.nextStudyContext = nextStudyContext;
+        this.weakStudyContext = weakStudyContext;
+        this.progress = progress;
+        this.studyStar = studyStar;
     }
 }

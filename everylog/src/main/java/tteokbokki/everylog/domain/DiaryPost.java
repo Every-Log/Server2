@@ -20,4 +20,10 @@ public class DiaryPost extends Post{
         super(user, title);
         this.diaryContext = diaryContext;
     }
+
+    public void update(String title, String diaryContext)
+    {
+        super.update(title);
+        this.diaryContext = diaryContext;
+    }
 }
