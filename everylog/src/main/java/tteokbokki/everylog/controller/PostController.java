@@ -33,7 +33,7 @@ public class PostController {
     }
 
     @GetMapping("/api/search/{hashtag_name}")
-    public String searchByHashtag(@PathVariable("hashtag_name") String hashtag_name){
+    public String searchByHashtag(@RequestParam("hashtag_name") String hashtag_name){
         List<PostDto> postDtoList = postService.Search(hashtag_name);
         return null;
     }

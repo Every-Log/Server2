@@ -140,6 +140,21 @@ public class PostTest {
 
     @Test
     public void 카테고리조회(){
-        
+        User user = new User("1", "name", "pass", "img");
+        StudyPost posts = new StudyPost(user, "공부하기 싫어", "스프링", "스프링2", "자바", 0.01f,
+                1);
+        Long pIds = postService.save(new PostDto(posts));
+
+        // 조회
+        List<PostDto> searchPostDto = postService.postList("S");
+
+        // 확인
+        assertEquals(2, postService.findById(pIds).getStudyStar(), "스터디 오류");
+
+    }
+
+    @Test
+    public void 해시태그검색(){
+
     }
 }
