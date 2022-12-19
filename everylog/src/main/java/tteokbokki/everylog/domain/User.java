@@ -4,6 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
 import javax.persistence.*;
 
 @Table(name = "MEMBER")
@@ -25,6 +28,21 @@ public class User {
         @Column
         private String image; //이미지 주소
 
+        //달성도
+        @Column
+        private ArrayList<Float> achievementWhole; //누적 달성도
+
+        @Column
+        private int diarySum = 0; //이번달 다이어리 글 수
+
+        @Column
+        private float achievementmonth = 0.0f; //이번 달 달성도.
+
+        @Column
+        private LocalDate lateDate;
+
+        private int todayDiary = 0;
+        
         @Builder
         public User(String userId, String name, String password, String image) {
                 this.userId = userId;
@@ -33,10 +51,39 @@ public class User {
                 this.image = image;
         }
 
-        public void update(String name, String img)
+        public void update(String name, String img) //유저 정보 수정
         {
                 this.name = name;
                 this.image = img;
         }
+
+        public void retoday(){todayDiary = 0;}
+        public int addtoday(){return ++todayDiary;}
+        public int subtoday(){return --todayDiary;}
+        public int addDiary() {
+                ++diarySum;
+                computeAchive();
+                return diarySum;
+        } //다이어리 글 추가
+        public int subDiary() {
+                --diarySum;
+                computeAchive();
+                return diarySum;
+        } //다이어리 글 감소
+
+        private void computeAchive(){
+                Calendar cal = Calendar.getInstance();
+                int allDate = cal.getActualMaximum(Calendar.DATE);
+                achievementmonth = diarySum/allDate;
+        }
+
+        public void sendAchive(){
+                achievementWhole.add(achievementmonth);
+                diarySum = 0;
+                achievementmonth = 0.0f;
+                todayDiary = 0;
+        }
+
+        public void updateLateDate(LocalDate ld) { this.lateDate = ld;}
 
 }
