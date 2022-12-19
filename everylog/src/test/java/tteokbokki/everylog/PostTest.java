@@ -57,4 +57,9 @@ public class PostTest {
 //                () -> postService.delete(130L));
 //        assertThat(e.getMessage()).isEqualTo("게시물이 없습니다.");
     }
+
+    @Test
+    public void findById() {
+
+    }
 }
