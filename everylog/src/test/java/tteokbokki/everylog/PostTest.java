@@ -77,6 +77,7 @@ public class PostTest {
         postService.update(pIdd, postDto1);
 
         //테스트
+        assertEquals(2, user.getAchievementmonth(), "달성도는 " + user.getAchievementmonth());
         assertEquals("test", postService.findById(pIdd).getTitle(), "다이어리 오류");
         assertEquals("안 멋있는 다이어리", postService.findById(pIdd).getDiaryContext(), "다이어리 오류");
     }
@@ -98,6 +99,7 @@ public class PostTest {
         postService.update(pIdr, postDto2);
 
         //확인
+        assertEquals(2, user.getAchievementmonth(), "달성도는 " + user.getAchievementmonth());
         assertEquals("별로야", postService.findById(pIdr).getReviewContext(), "리뷰 오류");
     }
 
@@ -138,6 +140,7 @@ public class PostTest {
         assertEquals(2, postService.findById(pIds).getStudyStar(), "스터디 오류");
     }
 
+
     @Test
     public void 카테고리조회(){
         User user = new User("1", "name", "pass", "img");
@@ -157,4 +160,5 @@ public class PostTest {
     public void 해시태그검색(){
 
     }
+
 }
