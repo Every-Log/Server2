@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.*;
 import tteokbokki.everylog.dto.PostDto;
@@ -119,7 +120,7 @@ public class PostTest {
     }
 
     @Test
-    public void 공부수정(){
+    public void 공부수정() {
         //주어짐
         User user = new User("1", "name", "pass", "img");
         Long uId = userService.save(new UserDto(user));
@@ -135,5 +136,10 @@ public class PostTest {
 
         //확인
         assertEquals(2, postService.findById(pIds).getStudyStar(), "스터디 오류");
+    }
 
+    @Test
+    public void 카테고리조회(){
+        
+    }
 }

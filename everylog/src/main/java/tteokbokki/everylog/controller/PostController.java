@@ -21,15 +21,21 @@ public class PostController {
         return postService.save(postDto);
     }
 
-    /*@DeleteMapping("/api/delete/{id}")
-    public void delete(@PathVariable Long id){
+    @DeleteMapping("/api/delete/{id}")
+    public PostDto delete(@PathVariable Long id){
         return postService.delete(id);
-    }*/
+    }
 
     @GetMapping("/api/search/{category_name}")
     public String searchByCategory(@PathVariable("category_name") String category_name){
         List<PostDto> postDtoList = postService.postList(category_name);
-        return postDtoList;
+        return null;
+    }
+
+    @GetMapping("/api/search/{hashtag_name}")
+    public String searchByHashtag(@PathVariable("hashtag_name") String hashtag_name){
+        List<PostDto> postDtoList = postService.Search(hashtag_name);
+        return null;
     }
 
 
