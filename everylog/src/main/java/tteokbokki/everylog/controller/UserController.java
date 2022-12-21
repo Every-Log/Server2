@@ -36,7 +36,8 @@ public class UserController {
     @GetMapping("/api/user/update/{id}")
     public Long update(@PathVariable Long id, UserDto userDto)
     {
-        return userService.update(id, userDto);}
+        return userService.update(id, userDto);
+    }
 
     @PostMapping("/api/login")
     public ResponseEntity login(@RequestBody UserDto userDto) {
