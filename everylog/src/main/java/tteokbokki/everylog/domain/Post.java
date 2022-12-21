@@ -1,13 +1,13 @@
 package tteokbokki.everylog.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "POST")
 @Entity
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
-public class Post extends BaseTimeEntity{
+public class Post{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,15 +35,21 @@ public class Post extends BaseTimeEntity{
     @Column
     private LocalDate date;
 
+    @OneToMany(mappedBy = "post")
+    @ToString.Exclude
+    @Setter
+    private Set<PostHashtag> hashtags = new HashSet<>();
+
     public String getDiscriminatorValue(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
 
         return val == null ? null : val.value();
     }
 
-    public Post(User user, String title) {
+    public Post(User user, String title,Set<PostHashtag> hashtags) {
         this.user = user;
         this.title = title;
+        this.hashtags = hashtags;
         this.date = LocalDate.now();
     }
 

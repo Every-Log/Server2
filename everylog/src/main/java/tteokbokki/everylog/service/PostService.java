@@ -9,24 +9,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tteokbokki.everylog.domain.*;
 
+import tteokbokki.everylog.dto.HashtagDto;
 import tteokbokki.everylog.dto.PostDto;
+import tteokbokki.everylog.repository.HashtagRepository;
 import tteokbokki.everylog.repository.PostRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class PostService {
 
     private final PostRepository postRepository;
+    private final HashtagRepository hashtagRepository;
+
     private BaseTimeEntity bte;
 
     @Transactional
-    public Long save(PostDto postDto){
+    public Long save(PostDto postDto, List<HashtagDto> hashtagDto){
         User user = postDto.getUser();
+        Post post  = postRepository.save(postDto.toEntity());
+        for (HashtagDto hashtag : hashtagDto) {
+            Hashtag hashtag1= hashtagRepository.findByHashtag(hashtag.getName())
+                    .orElseGet(()-> hashtagRepository.save(hashtag.toEntity()));
+            postRepository.save(PostHashtag.of(post,hashtag1));
+        }
         if(postDto.getPostType() == "D") //다이어리면 addDiary()
         {
             user.addtoday();
@@ -36,9 +49,18 @@ public class PostService {
                  user.retoday();
                 user.addDiary();
                 user.updateLateDate(LocalDate.now());
-             }}
+             }
+        }
+        return post.getId();
+    }
 
-        return postRepository.save(postDto.toEntity()).getId();
+    @Transactional(readOnly = true)
+    public Set<PostDto> getArticlesByHashtag(String hashtag) {
+        return hashtagRepository.findByHashtag(hashtag).isPresent() ?
+                hashtagRepository.findByHashtag(hashtag).get().getPosts().stream()
+                        .map(PostHashtag::getPost)
+                        .map(PostDto::PostDto)
+                        .collect(Collectors.toSet()) : new HashSet<>();
     }
 
     //조회
@@ -98,7 +120,7 @@ public class PostService {
     // 카테고리 별 조회
     @Transactional
     public List<PostDto> postList(String postType){
-        List<Post> posts = postRepository.findPostByCategory();
+        List<Post> posts = postRepository.findPostByCategory(postType);
         List<PostDto> postDtoList = new ArrayList<>();
 
         if(posts.isEmpty()) return postDtoList;

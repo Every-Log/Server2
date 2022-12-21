@@ -3,8 +3,12 @@ package tteokbokki.everylog.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -24,5 +28,22 @@ public class PostHashtag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
+
+
+    protected PostHashtag() {
+    }
+    public PostHashtag(Long id, Post post, Hashtag hashtag) {
+        this.id = id;
+        this.post = post;
+        this.hashtag = hashtag;
+    }
+
+    public PostHashtag(Post post, Hashtag hashtag) {
+        this.post = post;
+        this.hashtag = hashtag;
+    }
+    public static PostHashtag of(Post post, Hashtag hashtag) {
+        return new PostHashtag(post, hashtag);
+    }
 
 }

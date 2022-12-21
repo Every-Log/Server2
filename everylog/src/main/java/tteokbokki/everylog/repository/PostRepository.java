@@ -19,9 +19,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // JpaRepository에서는 By 뒷 부분은 SQL의 where 조건 절에 해당된다.
     // 따라서, Category을 붙여주면 Like 검색이 된다.
     // 카테고리 검색
-    List<Post> findPostByCategory(String postType);
+    List<Post> findBy(String postType);
     // 해시태그 검색
-    List<Post> findPostByHashtag(String hashtag);
+    List<Post> findByHashtag(String hashtag);
 
 
 }

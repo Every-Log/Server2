@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("D")
 @Getter
 @NoArgsConstructor
-@SuperBuilder(toBuilder=true)
+@SuperBuilder
 public class DiaryPost extends Post{
     private String diaryContext; //글 내용
 

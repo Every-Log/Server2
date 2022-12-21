@@ -16,27 +16,28 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/api/register")
+/*    @PostMapping("/api/register")
     public Long save(@RequestBody PostDto postDto){
         return postService.save(postDto);
-    }
+    }*/
 
     @DeleteMapping("/api/delete/{id}")
     public PostDto delete(@PathVariable Long id){
         return postService.delete(id);
     }
-
+    // 카테고리 조회 (게시글, 이미지, 해시태그)
     @GetMapping("/api/search/{category_name}")
-    public String searchByCategory(@PathVariable("category_name") String category_name){
+    public List<PostDto> searchByCategory(@PathVariable("category_name") String category_name){
+        // 게시글 리스트
         List<PostDto> postDtoList = postService.postList(category_name);
-        return null;
+        return postDtoList;
     }
 
+    // 해시태그로 게시글 검색
+    // (게시글 이미지 해시태그)
     @GetMapping("/api/search/{hashtag_name}")
-    public String searchByHashtag(@RequestParam("hashtag_name") String hashtag_name){
+    public List<PostDto> searchByHashtag(@RequestParam("hashtag_name") String hashtag_name){
         List<PostDto> postDtoList = postService.Search(hashtag_name);
-        return null;
+        return postDtoList;
     }
-
-
 }

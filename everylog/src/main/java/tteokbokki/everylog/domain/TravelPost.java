@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("T")
 @Getter
-@SuperBuilder(toBuilder=true)
+@SuperBuilder
 @NoArgsConstructor
 public class TravelPost extends Post {
     private String travelContext; // 여행 내용

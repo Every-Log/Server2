@@ -125,6 +125,22 @@ public class PostDto {
         return null;
     }
 
+    public static PostDto from(Post entity) {
+        return PostDto.builder()
+                .id(entity.getId())
+                .userAccountDto(UserAccount.UserAccountDto.from(entity.getUserAccount()))
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .createdAt(entity.getCreatedAt())
+                .createdBy(entity.getCreatedBy())
+                .modifiedAt(entity.getModifiedAt())
+                .modifiedBy(entity.getModifiedBy())
+                .deleted(entity.getDeleted())
+                .viewCount(entity.getViewCount())
+                .likeCount(entity.getLikeCount())
+                .build();
+    }
+
     public void updateDiary(String title, String context)
     {
         this.title = title;
