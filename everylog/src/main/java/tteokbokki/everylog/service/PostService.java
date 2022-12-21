@@ -1,20 +1,30 @@
 package tteokbokki.everylog.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import tteokbokki.everylog.domain.*;
+
 import tteokbokki.everylog.dto.PostDto;
 import tteokbokki.everylog.repository.PostRepository;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+=======
+
+import java.io.IOException;
+>>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
+<<<<<<< HEAD
     private BaseTimeEntity bte;
 
     @Transactional
@@ -33,6 +43,21 @@ public class PostService {
             }}
 
         return postRepository.save(postDto.toEntity()).getId();
+=======
+    private final ImageService imageService;
+
+    @Transactional
+    public Long save(PostDto postDto) throws IOException {
+        List<Image> images = imageService.saveImages(postDto.getImageFiles());
+        for (Image image : images) {
+            log.info(image.getOriginFilename());
+        }
+        Post post = postDto.toEntity();
+        images.stream()
+                .forEach(image -> post.addImage(image));
+
+        return postRepository.save(post).getId();
+>>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
     }
 
     //조회
@@ -88,4 +113,5 @@ public class PostService {
         postRepository.delete(post);
         return new PostDto(post);
     }
+
 }

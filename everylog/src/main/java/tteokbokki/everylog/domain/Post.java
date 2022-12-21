@@ -4,9 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+=======
+import org.springframework.web.multipart.MultipartFile;
+import tteokbokki.everylog.service.ImageService;
+
+>>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "POST")
 @Entity
@@ -27,6 +35,9 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private User user; //작성 회원
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Image> imageFiles = new ArrayList<>();
 
     @Column
     private String title; //제목
@@ -49,5 +60,19 @@ public class Post {
     public void update(String title)
     {
         this.title = title;
+    }
+    public void addImage(Image image) {
+        this.imageFiles.add(image);
+
+        // 게시글에 파일이 저장되어있지 않은 경우
+        if(image.getPost() != this)
+            // 파일 저장
+            image.setPost(this);
+    }
+
+    public List<MultipartFile> getImageList() {
+        List<MultipartFile> images = new ArrayList<>();
+        images.add((MultipartFile) imageFiles);
+        return images;
     }
 }
