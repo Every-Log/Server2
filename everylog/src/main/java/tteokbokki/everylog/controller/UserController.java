@@ -13,17 +13,11 @@ import tteokbokki.everylog.service.UserService;
 @RestController
 @Slf4j
 public class UserController {
+
     private final UserService userService;
 
-    @GetMapping("/api/user")
-    @ResponseBody
-    public String GetMappingTest (@RequestParam int id) {
-        return "Get Mapping : " + id;
-    }
-
-
     @PostMapping("/api/user")
-    public Long save(@RequestBody UserDto userDto){
+    public Long signUp(@RequestBody UserDto userDto){
         return userService.save(userDto);
     }
 
@@ -34,10 +28,8 @@ public class UserController {
     }
 
     @GetMapping("/api/user/update/{id}")
-    public Long update(@PathVariable Long id, UserDto userDto)
-    {
-        return userService.update(id, userDto);
-    }
+
+    public Long update(@PathVariable Long id, UserDto userDto) { return userService.update(id, userDto); }
 
     @PostMapping("/api/login")
     public ResponseEntity login(@RequestBody UserDto userDto) {
