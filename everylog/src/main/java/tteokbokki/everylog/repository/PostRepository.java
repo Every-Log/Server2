@@ -15,8 +15,6 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<Post> findById(Long id);
 
-
-
     @Query("SELECT hashtag FROM Hashtag hashtag ORDER BY hashtag.name")
     @Transactional(readOnly = true)
     List<Hashtag> findHashtags();
@@ -24,6 +22,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT hashtag FROM Hashtag hashtag WHERE hashtag.name = ?1")
     Optional<Hashtag> findHashtagByName(String name);
 
-
-    List<Post> findAll(String postType);
 }

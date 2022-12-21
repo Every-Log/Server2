@@ -34,7 +34,7 @@ public class PostController {
 
     @GetMapping("/api/post")
     public List<Post> getAllPosts() {
-        return (List<Post>) postService.findAll();
+        return postService.findAll();
     }
 
 
@@ -62,7 +62,7 @@ public class PostController {
     // (게시글 이미지 해시태그)
     @GetMapping("/api/search")
     public List<Post> searchByHashtag(@RequestParam("hashtag_name") String hashtag_name){
-        List<Post> postHashtagList = (List<Post>)postService.findAllByHashtag(hashtag_name);
+        List<Post> postHashtagList = postService.findAllByHashtag(hashtag_name);
         return postHashtagList;
     }
 

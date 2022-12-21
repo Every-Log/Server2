@@ -140,17 +140,17 @@ public class PostService {
     @Autowired
     private PostHashtagRepository hashtagVariableRepository;
 
-    public Iterable<Post> findAll() {
+    public List<Post> findAll() {
         return postRepository.findAll();
     }
 
-    public Iterable<Post> findAllByHashtag(String tagName){
+    public List<Post> findAllByHashtag(String tagName){
         return postRepository.findAll().stream()
                 .filter(post->post.hasTag(tagName))
                 .collect(Collectors.toList());
     }
 
-    public Iterable<Hashtag> findHashtags() {
+    public List<Hashtag> findHashtags() {
         return postRepository.findHashtags();
     }
 
