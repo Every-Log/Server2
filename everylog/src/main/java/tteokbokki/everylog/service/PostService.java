@@ -89,6 +89,8 @@ public class PostService {
         return postDtoList;
     }
 
+
+
     public void update(Long id, PostDto postDto){
         //게시글 있는지 확인
         Post post = postRepository.findById(id)
