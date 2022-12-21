@@ -4,9 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+<<<<<<< HEAD
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+=======
 import org.springframework.web.multipart.MultipartFile;
 import tteokbokki.everylog.service.ImageService;
 
+>>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +42,9 @@ public class Post {
     @Column
     private String title; //제목
 
+    @Column
+    private LocalDate date;
+
     public String getDiscriminatorValue(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
 
@@ -46,6 +54,7 @@ public class Post {
     public Post(User user, String title) {
         this.user = user;
         this.title = title;
+        this.date = LocalDate.now();
     }
 
     public void update(String title)

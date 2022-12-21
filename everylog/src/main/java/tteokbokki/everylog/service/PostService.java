@@ -9,8 +9,13 @@ import tteokbokki.everylog.domain.*;
 
 import tteokbokki.everylog.dto.PostDto;
 import tteokbokki.everylog.repository.PostRepository;
+<<<<<<< HEAD
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+=======
 
 import java.io.IOException;
+>>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,6 +24,26 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+<<<<<<< HEAD
+    private BaseTimeEntity bte;
+
+    @Transactional
+    public Long save(PostDto postDto)
+    {
+        User user = postDto.getUser();
+        if(postDto.getPostType().equals("D")) //다이어리면 addDiary()
+        {
+            user.addtoday();
+
+            if (user.getLateDate() == null || user.getLateDate() != LocalDate.now()) //오늘 처음 작성
+            {
+                user.retoday();
+                user.addDiary();
+                user.updateLateDate(LocalDate.now());
+            }}
+
+        return postRepository.save(postDto.toEntity()).getId();
+=======
     private final ImageService imageService;
 
     @Transactional
@@ -32,6 +57,7 @@ public class PostService {
                 .forEach(image -> post.addImage(image));
 
         return postRepository.save(post).getId();
+>>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
     }
 
     //조회
@@ -76,6 +102,14 @@ public class PostService {
     public PostDto delete(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("게시물이 없습니다."));
+
+        User user = post.getUser();
+
+        user.subtoday();
+
+        if (user.getTodayDiary() == 0)
+            user.subDiary();
+
         postRepository.delete(post);
         return new PostDto(post);
     }
