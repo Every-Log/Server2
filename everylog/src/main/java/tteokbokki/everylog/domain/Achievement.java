@@ -5,15 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Calendar;
 
 @Table(name = "ACHIEVEMENT")
 @Entity
 @Getter
 @NoArgsConstructor
-public class Achievement{
-
-    Calendar cal = Calendar.getInstance();
+public class Achievement extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,8 +12,6 @@ import tteokbokki.everylog.domain.*;
 import tteokbokki.everylog.dto.PostDto;
 import tteokbokki.everylog.repository.PostRepository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,22 +20,9 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private BaseTimeEntity bte;
 
     @Transactional
     public Long save(PostDto postDto){
-        User user = postDto.getUser();
-        if(postDto.getPostType() == "D") //다이어리면 addDiary()
-        {
-            user.addtoday();
-
-             if (user.getLateDate() == null || user.getLateDate() != LocalDate.now()) //오늘 처음 작성
-             {
-                 user.retoday();
-                user.addDiary();
-                user.updateLateDate(LocalDate.now());
-             }}
-
         return postRepository.save(postDto.toEntity()).getId();
     }
 
@@ -83,37 +68,8 @@ public class PostService {
     public PostDto delete(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("게시물이 없습니다."));
-
-        User user = post.getUser();
-
-        user.subtoday();
-
-        if (user.getTodayDiary() == 0)
-            user.subDiary();
-
         postRepository.delete(post);
         return new PostDto(post);
     }
 
-    // 카테고리 별 조회
-    @Transactional
-    public List<PostDto> postList(String postType){
-        List<Post> posts = postRepository.findPostByCategory();
-        List<PostDto> postDtoList = new ArrayList<>();
-        if(posts.isEmpty()) return postDtoList;
-
-        for(Post post : posts){
-            postDtoList.add(this.convertEntityToDto(post));
-        }
-        return postDtoList;
-    }
-
-    private PostDto convertEntityToDto(Post post){
-        return PostDto.builder().build();
-    }
-
-    /*@Repository
-    public interface postList extends JpaRepository<Post, Long> {
-        @Query("SELECT post" + "FROM ")
-    }*/
 }
