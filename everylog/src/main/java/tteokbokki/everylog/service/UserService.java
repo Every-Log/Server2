@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.User;
 import tteokbokki.everylog.dto.UserDto;
 import tteokbokki.everylog.repository.UserRepository;
-
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -51,8 +51,14 @@ public class UserService {
 
     @Transactional
     public String login(String userId, String password) {
-
+        LocalDate localDate = LocalDate.now();
         Optional<User> user = userRepository.findByUserId(userId);
+
+        User you = user.get();
+
+        if (you.getLateDate().getMonth() != localDate.getMonth())
+            you.sendAchive();
+
         log.info("db password = {}, input password = {}", user.get().getPassword(), password);
         if(user.get().getPassword().equals(password)) {
             return "Success";

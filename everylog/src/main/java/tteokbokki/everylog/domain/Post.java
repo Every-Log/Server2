@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Table(name = "POST")
@@ -30,6 +31,9 @@ public class Post {
     @Column
     private String title; //제목
 
+    @Column
+    private LocalDate date;
+
     public String getDiscriminatorValue(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
 
@@ -39,6 +43,7 @@ public class Post {
     public Post(User user, String title) {
         this.user = user;
         this.title = title;
+        this.date = LocalDate.now();
     }
 
     public void update(String title)

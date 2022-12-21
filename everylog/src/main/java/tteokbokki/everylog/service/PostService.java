@@ -6,7 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tteokbokki.everylog.domain.*;
 import tteokbokki.everylog.dto.PostDto;
 import tteokbokki.everylog.repository.PostRepository;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -14,9 +15,23 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private BaseTimeEntity bte;
 
     @Transactional
-    public Long save(PostDto postDto){
+    public Long save(PostDto postDto)
+    {
+        User user = postDto.getUser();
+        if(postDto.getPostType().equals("D")) //다이어리면 addDiary()
+        {
+            user.addtoday();
+
+            if (user.getLateDate() == null || user.getLateDate() != LocalDate.now()) //오늘 처음 작성
+            {
+                user.retoday();
+                user.addDiary();
+                user.updateLateDate(LocalDate.now());
+            }}
+
         return postRepository.save(postDto.toEntity()).getId();
     }
 
@@ -62,6 +77,14 @@ public class PostService {
     public PostDto delete(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("게시물이 없습니다."));
+
+        User user = post.getUser();
+
+        user.subtoday();
+
+        if (user.getTodayDiary() == 0)
+            user.subDiary();
+
         postRepository.delete(post);
         return new PostDto(post);
     }
