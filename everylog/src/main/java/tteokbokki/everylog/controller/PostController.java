@@ -25,11 +25,6 @@ public class PostController {
 
     private final PostService postService;
 
-//    @PostMapping("/api/post/save")
-//    public Long save(@RequestBody PostDto postDto) throws IOException {
-//        return postService.save(postDto);
-//    }
-
 //    @ResponseBody
 //    @GetMapping("/images/{filename}")
 //    public Resource processImg(@PathVariable String filename) throws MalformedURLException {
@@ -37,31 +32,25 @@ public class PostController {
 //    }
 
 
-//    @GetMapping("/api/post")
-//    public List<Post> getAllPosts() {
-//        return (List<Post>) postService.findAll();
+    @GetMapping("/api/post")
+    public List<Post> getAllPosts() {
+        return (List<Post>) postService.findAll();
+    }
+
+//    @GetMapping(value = "/api/post", params = {"hashtag"})
+//    public List<Post> getHashtagFilteredPosts(String hashtag) {
+//        return (List<Post>) postService.findAllByHashtag(hashtag);
 //    }
 //
-//    @GetMapping(value = "", params = {"hashtag"})
-//    public String getFilteredPosts(Model model, @RequestParam String hashtag) {
-//        model.addAttribute("posts", postService.findAllByHashtag(hashtag));
-//        return "post/index";
-//    }
-//
-//    @PostMapping("/api/post")
-//    public String createPost(PostSaveRequestDto postSaveRequestDto,
-//                             HttpSession httpSession,
-//                             @RequestParam(value = "hashtags", defaultValue = "false") List<String> hashtags) {
-//        postService.save(postSaveRequestDto, httpSession, hashtags);
-//        return "redirect:/posts";
-//    }
-//
-//    @GetMapping("/api/post/{id}")
-//    public String getPostDetail(@PathVariable Long id, Model model) throws IOException {
-//        postService.increaseViewCount(id);
-//        model.addAttribute("post", postService.getPostById(id));
-//        model.addAttribute("contents", postService.getHtml(id));
-//        return "post/show";
-//    }
+    @PostMapping("/api/post/save")
+    public Long savePost(@RequestBody PostDto postDto, List<String> hashtags) throws IOException {
+        return postService.save(postDto, hashtags);
+    }
+
+    @GetMapping("/api/post/{id}")
+    public PostDto getPostDetail(@PathVariable Long id) throws IOException {
+        PostDto postDto = postService.findById(id);
+        return postDto;
+    }
 
 }
