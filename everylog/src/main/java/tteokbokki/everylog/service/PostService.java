@@ -1,9 +1,7 @@
 package tteokbokki.everylog.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,18 +10,28 @@ import tteokbokki.everylog.domain.*;
 import tteokbokki.everylog.dto.PostDto;
 import tteokbokki.everylog.repository.PostRepository;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
+    private final ImageService imageService;
 
     @Transactional
-    public Long save(PostDto postDto){
-        return postRepository.save(postDto.toEntity()).getId();
+    public Long save(PostDto postDto) throws IOException {
+        List<Image> images = imageService.saveImages(postDto.getImageFiles());
+        for (Image image : images) {
+            log.info(image.getOriginFilename());
+        }
+        Post post = postDto.toEntity();
+        images.stream()
+                .forEach(image -> post.addImage(image));
+
+        return postRepository.save(post).getId();
     }
 
     //조회
