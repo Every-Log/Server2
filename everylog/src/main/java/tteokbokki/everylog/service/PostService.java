@@ -13,6 +13,7 @@ import tteokbokki.everylog.repository.PostHashtagRepository;
 import tteokbokki.everylog.repository.PostRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,26 @@ public class PostService {
                         IllegalArgumentException("이런 게시글은 없습니다. id=" + id));
 
         return new PostDto(post);
+    }
+
+
+    // 카테고리별 조회
+    @Transactional
+    public List<PostDto> postList(String postType){
+        List<Post> posts = postRepository.findAll()
+                .stream().filter(post->post.getDiscriminatorValue()
+                        .equals(postType)).collect(Collectors.toList());;
+
+        List<PostDto> postDtoList = new ArrayList<>();
+
+        /*if(posts.isEmpty()) return postDtoList;*/
+
+
+        for(Post post : posts){
+            PostDto postDto = new PostDto(post);
+            postDtoList.add(postDto);
+        }
+        return postDtoList;
     }
 
     public void update(Long id, PostDto postDto){
