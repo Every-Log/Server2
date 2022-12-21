@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import tteokbokki.everylog.service.ImageService;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,9 @@ public class Post {
     @Column
     private String title; //제목
 
+    @Column
+    private LocalDate date;
+
     public String getDiscriminatorValue(){
         DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
 
@@ -46,6 +51,7 @@ public class Post {
     public Post(User user, String title) {
         this.user = user;
         this.title = title;
+        this.date = LocalDate.now();
     }
 
     public void update(String title)

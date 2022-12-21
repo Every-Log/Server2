@@ -13,6 +13,7 @@ import tteokbokki.everylog.repository.PostHashtagRepository;
 import tteokbokki.everylog.repository.PostRepository;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,19 @@ public class PostService {
     @Transactional
     public Long save(PostDto postDto, List<String> hashtagNames) throws IOException {
         List<Image> images = imageService.saveImages(postDto.getImageFiles());
+        User user = postDto.getUser();
+
+        if(postDto.getPostType().equals("D")) //다이어리면 addDiary()
+        {
+            user.addtoday();
+
+            if (user.getLateDate() == null || user.getLateDate() != LocalDate.now()) //오늘 처음 작성
+            {
+                user.retoday();
+                user.addDiary();
+                user.updateLateDate(LocalDate.now());
+            }}
+
         for (Image image : images) {
             log.info(image.getOriginFilename());
         }
@@ -108,6 +122,14 @@ public class PostService {
     public PostDto delete(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("게시물이 없습니다."));
+
+        User user = post.getUser();
+
+        user.subtoday();
+
+        if (user.getTodayDiary() == 0)
+            user.subDiary();
+
         postRepository.delete(post);
         return new PostDto(post);
     }
