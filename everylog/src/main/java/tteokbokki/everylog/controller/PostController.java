@@ -37,10 +37,7 @@ public class PostController {
         return (List<Post>) postService.findAll();
     }
 
-//    @GetMapping(value = "/api/post", params = {"hashtag"})
-//    public List<Post> getHashtagFilteredPosts(String hashtag) {
-//        return (List<Post>) postService.findAllByHashtag(hashtag);
-//    }
+
 //
     @PostMapping("/api/post/save")
     public Long savePost(@RequestBody PostDto postDto, List<String> hashtags) throws IOException {
@@ -52,5 +49,34 @@ public class PostController {
         PostDto postDto = postService.findById(id);
         return postDto;
     }
+
+    // 카테고리별 게시글 조회
+    @GetMapping("/api/post/{postType}")
+    public List<PostDto> getCategoryPosts(@PathVariable("postType") String postType){
+        // 게시글 리스트
+        List<PostDto> postCategoryList = postService.postList(postType);
+        return postCategoryList;
+    }
+
+    // 해시태그로 게시글 검색
+    // (게시글 이미지 해시태그)
+    @GetMapping("/api/search")
+    public List<Post> searchByHashtag(@RequestParam("hashtag_name") String hashtag_name){
+        List<Post> postHashtagList = (List<Post>)postService.findAllByHashtag(hashtag_name);
+        return postHashtagList;
+    }
+
+    // 게시글 수정 update
+    @GetMapping("/api/post/update/{id}")
+    public void updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto){
+        postService.update(id, postDto);
+    }
+
+    // 게시글 삭제 delete
+    @DeleteMapping("/api/post/{id}")
+    public void delete(@PathVariable Long id){
+        postService.delete(id);
+    }
+
 
 }
