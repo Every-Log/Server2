@@ -66,4 +66,16 @@ public class Post {
         images.add((MultipartFile) imageFiles);
         return images;
     }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    public List<PostHashtag> hashtagVariables;
+
+    public boolean hasTag(String tagName) {
+        for (PostHashtag hashtagVariable : hashtagVariables) {
+            if (hashtagVariable.getHashtag().getName().equals(tagName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
