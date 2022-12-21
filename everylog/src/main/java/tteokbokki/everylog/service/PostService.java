@@ -24,7 +24,6 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-<<<<<<< HEAD
     private BaseTimeEntity bte;
 
     @Transactional
@@ -43,7 +42,7 @@ public class PostService {
             }}
 
         return postRepository.save(postDto.toEntity()).getId();
-=======
+
     private final ImageService imageService;
 
     @Transactional
@@ -57,7 +56,6 @@ public class PostService {
                 .forEach(image -> post.addImage(image));
 
         return postRepository.save(post).getId();
->>>>>>> 3490e0730a6504d79a69b9347fd56be2b98e7704
     }
 
     //조회
