@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
-public class Post extends BaseTimeEntity{
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

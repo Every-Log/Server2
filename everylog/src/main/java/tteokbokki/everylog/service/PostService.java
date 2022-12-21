@@ -100,33 +100,20 @@ public class PostService {
     public List<PostDto> postList(String postType){
         List<Post> posts = postRepository.findPostByCategory();
         List<PostDto> postDtoList = new ArrayList<>();
-
         if(posts.isEmpty()) return postDtoList;
 
-
         for(Post post : posts){
-            PostDto postDto = new PostDto(post);
-            postDtoList.add(postDto);
+            postDtoList.add(this.convertEntityToDto(post));
         }
         return postDtoList;
     }
 
-
-    // 해시태그 검색 조회
-    @Transactional
-    public List<PostDto> Search(String hashtag){
-        List<Post> posts = postRepository.findPostByHashtag(hashtag);
-        List<PostDto> postDtoList = new ArrayList<>();
-
-        if(posts.isEmpty()) return postDtoList;
-        //PostDto postDto = new PostDto();
-
-        for(Post post : posts){
-            PostDto postDto = new PostDto(post);
-            postDtoList.add(postDto);
-        }
-        return postDtoList;
+    private PostDto convertEntityToDto(Post post){
+        return PostDto.builder().build();
     }
 
-
+    /*@Repository
+    public interface postList extends JpaRepository<Post, Long> {
+        @Query("SELECT post" + "FROM ")
+    }*/
 }
