@@ -2,16 +2,19 @@ package tteokbokki.everylog.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tteokbokki.everylog.domain.*;
 
 import tteokbokki.everylog.dto.PostDto;
+import tteokbokki.everylog.repository.PostHashtagRepository;
 import tteokbokki.everylog.repository.PostRepository;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,14 +25,22 @@ public class PostService {
     private final ImageService imageService;
 
     @Transactional
-    public Long save(PostDto postDto) throws IOException {
+    public Long save(PostDto postDto, List<String> hashtagNames) throws IOException {
         List<Image> images = imageService.saveImages(postDto.getImageFiles());
         for (Image image : images) {
             log.info(image.getOriginFilename());
         }
+
         Post post = postDto.toEntity();
+
         images.stream()
                 .forEach(image -> post.addImage(image));
+        for(String name: hashtagNames){
+            Hashtag hashtag = postRepository.findHashtagByName(name).orElseThrow(()->new RuntimeException("해당 이름의 해시태그가 존재하지 않습니다."));
+            hashtagVariableRepository.save(new PostHashtag(post,hashtag));
+        }
+
+
 
         return postRepository.save(post).getId();
     }
@@ -78,6 +89,24 @@ public class PostService {
                 new IllegalArgumentException("게시물이 없습니다."));
         postRepository.delete(post);
         return new PostDto(post);
+    }
+
+    // 해시태그
+    @Autowired
+    private PostHashtagRepository hashtagVariableRepository;
+
+    public Iterable<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    public Iterable<Post> findAllByHashtag(String tagName){
+        return postRepository.findAll().stream()
+                .filter(post->post.hasTag(tagName))
+                .collect(Collectors.toList());
+    }
+
+    public Iterable<Hashtag> findHashtags() {
+        return postRepository.findHashtags();
     }
 
 }

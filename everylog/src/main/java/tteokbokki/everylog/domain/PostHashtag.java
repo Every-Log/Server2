@@ -1,14 +1,15 @@
 package tteokbokki.everylog.domain;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
+@RequiredArgsConstructor
 public class PostHashtag {
 
     @Id @GeneratedValue
@@ -18,11 +19,17 @@ public class PostHashtag {
     // N : 1 (게시글)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @NonNull
     private Post post;
 
     // N : 1 (해시태그)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hashtag_id")
+    @NonNull
     private Hashtag hashtag;
+
+    public boolean match(String tagName) {
+        return this.hashtag.getName().equals(tagName);
+    }
 
 }
