@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import tteokbokki.everylog.domain.*;
+
 import tteokbokki.everylog.dto.PostDto;
 import tteokbokki.everylog.repository.PostRepository;
 
@@ -77,4 +79,5 @@ public class PostService {
         postRepository.delete(post);
         return new PostDto(post);
     }
+
 }
