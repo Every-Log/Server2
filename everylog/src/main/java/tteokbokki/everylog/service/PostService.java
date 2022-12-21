@@ -137,7 +137,7 @@ public class PostService {
     // 해시태그 검색 조회
     @Transactional
     public List<PostDto> Search(String hashtag){
-        List<Post> posts = postRepository.findPostByHashtag(hashtag);
+        List<Post> posts = postRepository.findByh(hashtag);
         List<PostDto> postDtoList = new ArrayList<>();
 
         if(posts.isEmpty()) return postDtoList;
