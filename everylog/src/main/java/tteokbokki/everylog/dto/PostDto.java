@@ -4,7 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import tteokbokki.everylog.domain.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -15,6 +19,8 @@ public class PostDto {
     private String title;
 
     private String postType;
+
+    private List<MultipartFile> imageFiles = new ArrayList<>();
 
     // Travel
     // 여행 내용
@@ -54,6 +60,7 @@ public class PostDto {
         this.user = post.getUser();
         this.title = post.getTitle();
         this.postType = post.getDiscriminatorValue();
+        this.imageFiles = post.getImageList();
         switch (postType) {
             case "T":
                 TravelPost tPost = (TravelPost) post;
@@ -95,12 +102,14 @@ public class PostDto {
                         .travelContext(travelContext)
                         .travelDate(travelDate)
                         .summary(summary)
+                        .imageFiles(new ArrayList<>())
                         .build();
             case Diary:
                 return DiaryPost.builder()
                         .user(user)
                         .title(title)
                         .diaryContext(diaryContext)
+                        .imageFiles(new ArrayList<>())
                         .build();
             case Review:
                 return ReviewPost.builder()
@@ -109,6 +118,7 @@ public class PostDto {
                         .reviewContent(reviewContent)
                         .reviewStar(reviewStar)
                         .reviewContext(reviewContext)
+                        .imageFiles(new ArrayList<>())
                         .build();
             case Study:
                 return StudyPost.builder()
@@ -119,6 +129,7 @@ public class PostDto {
                         .weakStudyContext(weakStudyContext)
                         .progress(progress)
                         .StudyStar(studyStar)
+                        .imageFiles(new ArrayList<>())
                         .build();
         }
 
